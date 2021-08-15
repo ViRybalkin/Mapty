@@ -12,7 +12,7 @@
     />
 
     <link rel="stylesheet" href="style.css" />
-    
+
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
   crossorigin=""/>
@@ -38,13 +38,14 @@
           </div>
           <div class="form__row">
             <label class="form__label">Distance</label>
-            <input class="form__input form__input--distance" placeholder="km" />
+            <input type="number" class="form__input form__input--distance" placeholder="km" />
           </div>
           <div class="form__row">
             <label class="form__label">Duration</label>
             <input
               class="form__input form__input--duration"
               placeholder="min"
+              type="number"
             />
           </div>
           <div class="form__row">
@@ -52,6 +53,7 @@
             <input
               class="form__input form__input--cadence"
               placeholder="step/min"
+              type="number"
             />
           </div>
           <div class="form__row form__row--hidden">
@@ -59,6 +61,7 @@
             <input
               class="form__input form__input--elevation"
               placeholder="meters"
+              type="number"
             />
           </div>
           <button class="form__btn">OK</button>
