@@ -12,7 +12,6 @@ let map, mapEvent;
 class Workout {
   date = new Date();
   id = (Date.now() + '').slice(-10);
-  clicks = 0;
   constructor(coords, distance, duration) {
     this.coords = coords;
     this.distance = distance;
@@ -36,9 +35,6 @@ class Workout {
     this.description = `${this.type[0].toUpperCase() + this.type.slice(1)} on ${
       months[this.date.getMonth()]
     } ${this.date.getDay()}`;
-  }
-  click() {
-    this.clicks++;
   }
 }
 
@@ -77,10 +73,10 @@ class App {
   #mapZoom = 14;
   constructor() {
     this._getPosition();
+    // this._getLocalStorage();
     form.addEventListener('submit', this._newWorkout.bind(this));
     inputType.addEventListener('change', this._toggleElevationField.bind(this));
     containerWorkouts.addEventListener('click', this._moveToPopup.bind(this));
-    this._getLocalStorage();
   }
 
   _getPosition() {
@@ -134,13 +130,12 @@ class App {
       inputs.every(input => Number.isFinite(input));
     const positiveInputs = (...inputs) => inputs.every(input => input > 0);
 
-    //get Data from the form
     const type = inputType.value;
     const distance = +inputDistance.value;
     const duration = +inputDuration.value;
     const { lat, lng } = this.#mapEvent.latlng;
     let workout;
-    // check ifdata is valid
+
     if (type === 'cycling') {
       const elevationGain = +inputElevation.value;
       if (
@@ -162,25 +157,11 @@ class App {
       }
       workout = new Running([lat, lng], distance, duration, cadence);
     }
-
-    // if workout running creat a running object
-
-    // if workout cycling creat a cycling object
-
-    // add new object to workout array
     this.#workouts.push(workout);
     this._renderWorkoutMarker(workout);
     this._renderWorkout(workout);
     this._hideForm();
     this._setLocalStorage();
-
-    // render workout as a market on map
-
-    // render workout on a list
-
-    // hide form and clear inputs field
-
-    // display marker
   }
   _renderWorkoutMarker(workout) {
     L.marker(workout.coords)
@@ -263,16 +244,15 @@ class App {
         duration: 1,
       },
     });
-    workout.click();
   }
   _setLocalStorage() {
     localStorage.setItem('workout', JSON.stringify(this.#workouts));
   }
-  _getLocalStorage() {
-    const data = JSON.parse(localStorage.getItem('workout'));
-    this.#workouts = data;
-    this.#workouts.forEach(work => this._renderWorkout(work));
-  }
+  // _getLocalStorage() {
+  //   const data = JSON.parse(localStorage.getItem('workout'));
+  //   this.#workouts = data;
+  //   this.#workouts.forEach(work => this._renderWorkout(work));
+  // }
 }
 
 const app = new App();
