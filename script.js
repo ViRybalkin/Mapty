@@ -73,7 +73,7 @@ class App {
   #mapZoom = 14;
   constructor() {
     this._getPosition();
-    // this._getLocalStorage();
+    this._getLocalStorage();
     form.addEventListener('submit', this._newWorkout.bind(this));
     inputType.addEventListener('change', this._toggleElevationField.bind(this));
     containerWorkouts.addEventListener('click', this._moveToPopup.bind(this));
@@ -187,7 +187,7 @@ class App {
       <h2 class="workout__title">${workout.description}</h2>
       <div class="workout__details">
         <span class="workout__icon">${
-          workout.type === 'runninig' ? '🏃‍♂️' : '🚴‍♀️'
+          workout.type === 'running' ? '🏃‍♂️' : '🚴‍♀️'
         }</span>
         <span class="workout__value">${workout.distance}</span>
         <span class="workout__unit">km</span>
@@ -248,11 +248,11 @@ class App {
   _setLocalStorage() {
     localStorage.setItem('workout', JSON.stringify(this.#workouts));
   }
-  // _getLocalStorage() {
-  //   const data = JSON.parse(localStorage.getItem('workout'));
-  //   this.#workouts = data;
-  //   this.#workouts.forEach(work => this._renderWorkout(work));
-  // }
+  _getLocalStorage() {
+    const data = JSON.parse(localStorage.getItem('workout'));
+    this.#workouts = data;
+    this.#workouts.forEach(work => this._renderWorkout(work));
+  }
 }
 
 const app = new App();
